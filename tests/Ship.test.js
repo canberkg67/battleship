@@ -11,4 +11,11 @@ describe('Ship', () => {
         ship.hit();
         expect(ship.hits).toBe(2);
     });
+    test("Ship is sunk when hits equal length", () => {
+        const ship = new Ship(3);
+        ship.hit();
+        ship.hit();
+        ship.hit();
+        expect(ship.isSunk()).toBe(true);
+    });
 });
