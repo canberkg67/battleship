@@ -1,14 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    min-height: 100vh;
-    font-family: "Barlow Condensed", sans-serif;
-}
-
+/* Importing fonts */
 @font-face {
     font-family: "Barlow Condensed";
     src: url("./src/fonts/BarlowCondensed-Regular.ttf") format("truetype");
@@ -29,4 +19,18 @@ body {
     font-weight: 700;
     font-style: normal;
 }
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Barlow Condensed", sans-serif;
+}
+
+
 
