@@ -6,4 +6,27 @@
 
 body {
     min-height: 100vh;
+    font-family: "Barlow Condensed", sans-serif;
 }
+
+@font-face {
+    font-family: "Barlow Condensed";
+    src: url("./src/fonts/BarlowCondensed-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Barlow Condensed";
+    src: url("./src/fonts/BarlowCondensed-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Barlow Condensed";
+    src: url("./src/fonts/BarlowCondensed-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+}
+
