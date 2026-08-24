@@ -9,8 +9,16 @@ export class Gameboard {
 
     placeShip(ship, coordinates, orientation) {
 
+        //coordinates are starting point
+
         this.ships.push(ship);
         const [x, y] = coordinates; // x is the row index, y is the column index
+
+        if ( (orientation === 'horizontal' && y + ship.length > 10) || 
+            (orientation === 'vertical' && x + ship.length > 10) ) {
+            throw new Error("Ship placement is out of bounds");
+        }
+
         if (orientation === 'horizontal') {
             for (let i = 0; i < ship.length; i++) {
                 this.board[x][y + i] = ship; // same row but columns incremented by i
