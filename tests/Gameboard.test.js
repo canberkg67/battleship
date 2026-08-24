@@ -60,4 +60,11 @@ describe('Gameboard', () => {
             gameboard.placeShip(ship2, [0, 1], 'vertical');
         }).toThrow("Ship placement overlaps with another ship");
     });
+    test("Receive attack that hits a ship", () => {
+        const gameboard = new Gameboard();
+        const ship = new Ship(3);
+        gameboard.placeShip(ship, [0, 0], 'horizontal');
+        gameboard.receiveAttack([0, 0]);
+        expect(ship.hits).toBe(1);
+    });
 });

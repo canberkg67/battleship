@@ -39,4 +39,12 @@ export class Gameboard {
         
         this.ships.push(ship);
     }
+
+    receiveAttack(coordinates) {
+        const [x, y] = coordinates;
+        const target = this.board[x][y];
+        if (target) {
+            target.hit();
+        }
+    }
 }
