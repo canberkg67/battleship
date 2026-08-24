@@ -10,4 +10,10 @@ describe('Gameboard', () => {
         const gameboard = new Gameboard();
         expect(gameboard.ships).toEqual([]);
     })
+    test("Can add a ship to the gameboard", () => {
+        const gameboard = new Gameboard();
+        const ship = new Ship(3);
+        gameboard.placeShip(ship,[0,0], 'horizontal');
+        expect(gameboard.ships).toContain(ship);
+    });
 });
