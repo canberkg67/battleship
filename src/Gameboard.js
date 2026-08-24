@@ -12,9 +12,19 @@ export class Gameboard {
         //coordinates are starting point
         const [x, y] = coordinates; // x is the row index, y is the column index
 
+        // Check if the ship placement is out of bounds
         if ( (orientation === 'horizontal' && y + ship.length > 10) || 
             (orientation === 'vertical' && x + ship.length > 10) ) {
             throw new Error("Ship placement is out of bounds");
+        }
+
+        // Check if the ship placement overlaps with another ship
+        for (let i = 0; i < ship.length; i++) {
+            if (orientation === 'horizontal' && this.board[x][y + i] !== null) {
+                throw new Error("Ship placement overlaps with another ship");
+            } else if (orientation === 'vertical' && this.board[x + i][y] !== null) {
+                throw new Error("Ship placement overlaps with another ship");
+            }
         }
 
         if (orientation === 'horizontal') {
