@@ -67,4 +67,11 @@ describe('Gameboard', () => {
         gameboard.receiveAttack([0, 0]);
         expect(ship.hits).toBe(1);
     });
+    test("Record missed attacks", () => {
+        const gameboard = new Gameboard();
+        const ship = new Ship(3);
+        gameboard.placeShip(ship, [0, 0], 'horizontal');
+        gameboard.receiveAttack([1, 1]);
+        expect(gameboard.missedAttacks).toContainEqual([1, 1]);
+    })
 });
