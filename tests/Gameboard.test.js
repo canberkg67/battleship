@@ -84,4 +84,16 @@ describe('Gameboard', () => {
         gameboard.receiveAttack([0, 1]);
         expect(gameboard.allShipsSunk()).toBe(false);
     })
+    test("Reports that all ships are sunk", () => {
+        const gameboard = new Gameboard();
+        const ship1 = new Ship(2);
+        const ship2 = new Ship(2);
+        gameboard.placeShip(ship1, [0, 0], 'horizontal');
+        gameboard.placeShip(ship2, [1, 0], 'horizontal');
+        gameboard.receiveAttack([0, 0]);
+        gameboard.receiveAttack([0, 1]);
+        gameboard.receiveAttack([1, 0]);
+        gameboard.receiveAttack([1, 1]);
+        expect(gameboard.allShipsSunk()).toBe(true);
+    })
 });
