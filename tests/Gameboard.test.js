@@ -6,4 +6,8 @@ describe('Gameboard', () => {
         const gameboard = new Gameboard();
         expect(gameboard).toBeDefined();
     });
+    test("Starts with no ship", () => {
+        const gameboard = new Gameboard();
+        expect(gameboard.ships).toEqual([]);
+    })
 });
