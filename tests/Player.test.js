@@ -5,4 +5,8 @@ describe('Player', () => {
         const player = new Player();
         expect(player).toBeDefined();
     });
+    test("Player has a gameboard", () => {
+        const player = new Player();
+        expect(player.gameboard).toBeDefined();
+    });
 });
