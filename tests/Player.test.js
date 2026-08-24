@@ -9,4 +9,11 @@ describe('Player', () => {
         const player = new Player();
         expect(player.gameboard).toBeDefined();
     });
+    test("Player can attack enemy gameboard and miss", () => {
+        const player = new Player();
+        const enemy = new Player();
+
+        player.attack(enemy.gameboard, [0, 0]);
+        expect(enemy.gameboard.missedAttacks).toContainEqual([0, 0]);
+    });
 });
