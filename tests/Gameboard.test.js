@@ -50,4 +50,14 @@ describe('Gameboard', () => {
             gameboard.placeShip(ship, [8, 0], 'vertical');
         }).toThrow("Ship placement is out of bounds");
     });
+    test("Can't place a ship overlapping another ship", () => {
+        const gameboard = new Gameboard();
+        const ship1 = new Ship(3);
+        const ship2 = new Ship(2);
+
+        gameboard.placeShip(ship1, [0, 0], 'horizontal');
+        expect(() => {
+            gameboard.placeShip(ship2, [0, 1], 'vertical');
+        }).toThrow("Ship placement is out of bounds");
+    });
 });
