@@ -10,8 +10,6 @@ export class Gameboard {
     placeShip(ship, coordinates, orientation) {
 
         //coordinates are starting point
-
-        this.ships.push(ship);
         const [x, y] = coordinates; // x is the row index, y is the column index
 
         if ( (orientation === 'horizontal' && y + ship.length > 10) || 
@@ -28,5 +26,7 @@ export class Gameboard {
                 this.board[x + i][y] = ship; // same column but rows incremented by i
             }
         }
+        
+        this.ships.push(ship);
     }
 }
