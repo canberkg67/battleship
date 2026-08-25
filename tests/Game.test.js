@@ -14,4 +14,9 @@ describe('Game', () => {
         const game = new Game();
         expect(game.currentPlayer).toBe(game.player1);
     });
+    test("Game can switch players", () => {
+        const game = new Game();
+        game.switchPlayer();
+        expect(game.currentPlayer).toBe(game.player2);
+    });
 });
