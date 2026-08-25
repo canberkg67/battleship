@@ -10,4 +10,8 @@ describe('Game', () => {
         expect(game.player1).toBeDefined();
         expect(game.player2).toBeDefined();
     });
+    test("Player 1 starts the game", () => {
+        const game = new Game();
+        expect(game.currentPlayer).toBe(game.player1);
+    });
 });
