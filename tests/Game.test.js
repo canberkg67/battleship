@@ -19,4 +19,9 @@ describe('Game', () => {
         game.switchPlayer();
         expect(game.currentPlayer).toBe(game.player2);
     });
+    test("Game is over if one player has no ships left", () => {
+        const game = new Game();
+        game.player1.gameboard.ships = [];
+        expect(game.isGameOver()).toBe(true);
+    });
 });
