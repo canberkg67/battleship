@@ -5,6 +5,6 @@ export class Player {
         this.gameboard = new Gameboard();
     }
     attack(enemyGameboard, coordinates) {
-        enemyGameboard.receiveAttack(coordinates);
+        return enemyGameboard.receiveAttack(coordinates);
     }
 }

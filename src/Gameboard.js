@@ -45,8 +45,10 @@ export class Gameboard {
         const target = this.board[x][y];
         if (target) {
             target.hit();
+            return true; 
         } else {
             this.missedAttacks.push(coordinates);
+            return false;
         }
     }
 
