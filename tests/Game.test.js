@@ -41,4 +41,11 @@ describe('Game', () => {
         game.playTurn([1, 1]);
         expect(game.currentPlayer).toBe(game.player2);
     });
+    test("does not switch player after a successful attack", () => {
+        const game = new Game();
+        const ship = new Ship(1);
+        game.player2.gameboard.placeShip(ship, [0, 0], 'horizontal');
+        game.playTurn([0, 0]);
+        expect(game.currentPlayer).toBe(game.player1);
+    });
 });
