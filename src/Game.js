@@ -15,4 +15,13 @@ export class Game {
     isGameOver() {
         return this.player1.gameboard.allShipsSunk() || this.player2.gameboard.allShipsSunk();
     }
+
+    getWinner() {
+        if (this.player1.gameboard.allShipsSunk()) {
+            return this.player2;
+        } else if (this.player2.gameboard.allShipsSunk()) {
+            return this.player1;
+        }
+        return null;
+    }
 }

@@ -1,4 +1,5 @@
 import { Game } from '../src/Game.js';
+import { Ship } from '../src/Ship.js';
 
 describe('Game', () => {
     test("Game can be created", () => {
@@ -21,7 +22,16 @@ describe('Game', () => {
     });
     test("Game is over if one player has no ships left", () => {
         const game = new Game();
-        game.player1.gameboard.ships = [];
+        const ship = new Ship(1);
+        game.player2.gameboard.placeShip(ship, [0, 0], 'horizontal');
+        game.player1.attack(game.player2.gameboard, [0, 0]);
         expect(game.isGameOver()).toBe(true);
+    });
+    test("Return the winner if one player has no ships left", () => {
+        const game = new Game();
+        const ship = new Ship(1);
+        game.player2.gameboard.placeShip(ship, [0, 0], 'horizontal');
+        game.player1.attack(game.player2.gameboard, [0, 0]);
+        expect(game.getWinner()).toBe(game.player1);
     });
 });
