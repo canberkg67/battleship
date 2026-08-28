@@ -1,5 +1,5 @@
 import { Game } from './Game.js';
+import { renderGame } from './dom.js';
 
 const game = new Game();
-
-const gameContainer = document.getElementById('game-container');
+renderGame(game);
