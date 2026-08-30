@@ -5,6 +5,10 @@ describe('Ship', () => {
         const ship = new Ship(3);
         expect(ship.length).toBe(3);
     });
+    test("Ships have a name", () => {
+        const ship = new Ship(3 , "Submarine");
+        expect(ship.name).toBe("Submarine");
+    });
     test("Hit increase the hit count", () => {
         const ship = new Ship(3);
         ship.hit();
