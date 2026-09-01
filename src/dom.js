@@ -7,6 +7,7 @@ function createBoard(player) {
     title.textContent = player.name;
 
     const shipSelector = createShipSelector(player);
+    const orientationSelector = createOrientationSelector();
 
     const board = document.createElement('div');
     board.classList.add('board');
@@ -19,39 +20,53 @@ function createBoard(player) {
             cell.dataset.col = col;
 
             cell.addEventListener('click', () => {
+                const  selectedShip = shipSelector.selection.ship;
+                
+                if (!selectedShip) {
+                    return;
+                }
+
+
+                
                 const coordinates = [
                     Number(cell.dataset.row),
                     Number(cell.dataset.col)
                 ];
-                console.log("Clicked cell coordinates:", coordinates);
+                
+                const orientation = orientationSelector.orientation.value;
+
+                player.gameboard.placeShip(selectedShip, coordinates, orientation);
             });
 
             board.appendChild(cell);
         }
     }
     
-    const orientationSelector = createOrientationSelector(player);
 
     playerSection.appendChild(title);
-    playerSection.appendChild(shipSelector);
-    playerSection.appendChild(orientationSelector);
+    playerSection.appendChild(shipSelector.element);
+    playerSection.appendChild(orientationSelector.element);
     playerSection.appendChild(board);
 
     return playerSection;
 }
 
-let selectedButton = null;
-let selectedShip = null;
 
 function createShipSelector(player) {
     const shipContainer = document.createElement('div');
     shipContainer.classList.add('ship-container');
 
+    let selectedButton = null;
+
+    const selection = {
+        ship: null
+    };
+
     player.availableShips.forEach((ship) => {
         const shipButton = document.createElement('button');
         shipButton.classList.add('ship');
         shipButton.textContent = ship.name;
-        shipButton.dataset.ship = ship.name;
+        
 
         shipButton.addEventListener('click', () => {
             if (selectedButton) {
@@ -59,19 +74,24 @@ function createShipSelector(player) {
             }
             shipButton.classList.add('selected');
             selectedButton = shipButton;
-            selectedShip = ship;
+            selection.ship = ship;
         });
 
         shipContainer.appendChild(shipButton);
     });
 
-    return shipContainer;
+    return {
+        element: shipContainer,
+        selection
+    };
 }
 
 function createOrientationSelector() {
     const orientationContainer = document.createElement('div');
 
-    let selectedOrientation = 'horizontal';
+    const orientation = {
+        value: 'horizontal'
+    };
 
     const horizontalButton = document.createElement('button');
     horizontalButton.textContent = 'Horizontal';
@@ -80,17 +100,20 @@ function createOrientationSelector() {
     verticalButton.textContent = 'Vertical';
 
     horizontalButton.addEventListener('click', () => {
-        selectedOrientation = 'horizontal';
+        orientation.value = 'horizontal';
     });
 
     verticalButton.addEventListener('click', () => {
-        selectedOrientation = 'vertical';
+        orientation.value = 'vertical';
     });
 
     orientationContainer.appendChild(horizontalButton);
     orientationContainer.appendChild(verticalButton);
 
-    return orientationContainer;
+    return {
+        element: orientationContainer,
+        orientation
+    };
 }
 
 export function renderGame(game) {
