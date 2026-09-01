@@ -24,6 +24,9 @@ function createBoard(player) {
     return playerSection;
 }
 
+let selectedButton = null;
+let selectedShip = null;
+
 function createShipSelector(player) {
     const shipContainer = document.createElement('div');
     shipContainer.classList.add('ship-container');
@@ -35,7 +38,12 @@ function createShipSelector(player) {
         shipButton.dataset.ship = ship.name;
 
         shipButton.addEventListener('click', () => {
-            shipButton.classList.toggle('selected'); 
+            if (selectedButton) {
+                selectedButton.classList.remove('selected');
+            }
+            shipButton.classList.add('selected');
+            selectedButton = shipButton;
+            selectedShip = ship;
         });
 
         shipContainer.appendChild(shipButton);
