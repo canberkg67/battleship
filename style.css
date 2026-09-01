@@ -50,5 +50,9 @@ body {
     background-color: #407494;
 }
 
+.ship.placed {
+    background-color: #555;
+}
+
 
 
