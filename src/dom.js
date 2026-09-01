@@ -36,6 +36,8 @@ function createBoard(player) {
                 const orientation = orientationSelector.orientation.value;
 
                 player.gameboard.placeShip(selectedShip, coordinates, orientation);
+
+                renderShips(player, board);
             });
 
             board.appendChild(cell);
@@ -116,9 +118,21 @@ function createOrientationSelector() {
     };
 }
 
+function renderShips(player , board) {
+    for (let row = 0; row < 10; row++) {
+        for (let col = 0; col < 10; col++) {
+            if (player.gameboard.board[row][col] !== null) {
+                const cell = board.children[row * 10 + col];
+                cell.classList.add('ship-placed');
+            }
+        }
+}
+}
+
 export function renderGame(game) {
     const player1Board = createBoard(game.player1);
     const player2Board = createBoard(game.player2);
     gameContainer.appendChild(player1Board);
     gameContainer.appendChild(player2Board);
 }
+
