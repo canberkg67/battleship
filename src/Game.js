@@ -1,4 +1,5 @@
 import { Player } from '../src/Player.js';
+import { Ship } from '../src/Ship.js';
 
 export class Game {
     constructor() {
@@ -32,5 +33,15 @@ export class Game {
             return this.player1;
         }
         return null;
+    }
+    
+    createShips () {
+        return [
+            new Ship(5, "Carrier"),
+            new Ship(4, "Battleship"),
+            new Ship(3, "Cruiser"),
+            new Ship(3, "Submarine"),
+            new Ship(2, "Destroyer")
+        ];
     }
 }

@@ -48,4 +48,14 @@ describe('Game', () => {
         game.playTurn([0, 0]);
         expect(game.currentPlayer).toBe(game.player1);
     });
+    test("createShips method returns an array of ships", () => {
+        const game = new Game();
+        const ships = game.createShips();
+        expect(ships.length).toBe(5);
+        expect(ships[0].name).toBe("Carrier");
+        expect(ships[1].name).toBe("Battleship");
+        expect(ships[2].name).toBe("Cruiser");
+        expect(ships[3].name).toBe("Submarine");
+        expect(ships[4].name).toBe("Destroyer");
+    });
 });
