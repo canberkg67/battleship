@@ -6,6 +6,8 @@ export class Game {
         this.player1 = new Player("Player 1");
         this.player2 = new Player("Player 2");
         this.currentPlayer = this.player1;
+        this.player1.availableShips = this.createShips();
+        this.player2.availableShips = this.createShips();
     }
 
     switchPlayer() {

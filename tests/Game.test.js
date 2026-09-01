@@ -58,4 +58,9 @@ describe('Game', () => {
         expect(ships[3].name).toBe("Submarine");
         expect(ships[4].name).toBe("Destroyer");
     });
+    test("Players start with available ships", () => {
+        const game = new Game();
+        expect(game.player1.availableShips.length).toBe(5);
+        expect(game.player2.availableShips.length).toBe(5);
+    });
 });
