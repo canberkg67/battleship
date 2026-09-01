@@ -6,6 +6,8 @@ function createBoard(player) {
     const title = document.createElement('h2');
     title.textContent = player.name;
 
+    const shipSelector = createShipSelector(player);
+
     const board = document.createElement('div');
     board.classList.add('board');
 
@@ -16,9 +18,26 @@ function createBoard(player) {
     }
 
     playerSection.appendChild(title);
+    playerSection.appendChild(shipSelector);
     playerSection.appendChild(board);
 
     return playerSection;
+}
+
+function createShipSelector(player) {
+    const shipContainer = document.createElement('div');
+    shipContainer.classList.add('ship-container');
+
+    player.availableShips.forEach((ship) => {
+        const shipButton = document.createElement('button');
+        shipButton.classList.add('ship');
+        shipButton.textContent = ship.name;
+        shipButton.dataset.ship = ship.name;
+
+        shipContainer.appendChild(shipButton);
+    });
+
+    return shipContainer;
 }
 
 export function renderGame(game) {
