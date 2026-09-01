@@ -20,14 +20,12 @@ function createBoard(player) {
             cell.dataset.col = col;
 
             cell.addEventListener('click', () => {
-                const  selectedShip = shipSelector.selection.ship;
+                const selectedShip = shipSelector.selection.ship;
                 
                 if (!selectedShip) {
                     return;
                 }
 
-
-                
                 const coordinates = [
                     Number(cell.dataset.row),
                     Number(cell.dataset.col)
@@ -35,9 +33,21 @@ function createBoard(player) {
                 
                 const orientation = orientationSelector.orientation.value;
 
-                player.gameboard.placeShip(selectedShip, coordinates, orientation);
-
-                renderShips(player, board);
+                try {
+                    player.gameboard.placeShip(selectedShip, coordinates, orientation);
+                    
+                    // Remove the placed ship from available ships
+                    const shipIndex = player.availableShips.indexOf(selectedShip);
+                    if (shipIndex > -1) {
+                        player.availableShips.splice(shipIndex, 1);
+                    }
+                    
+                    // Clear selection and update ship buttons
+                    shipSelector.clearSelection();
+                    renderShips(player, board);
+                } catch (error) {
+                    console.error(error.message);
+                }
             });
 
             board.appendChild(cell);
@@ -64,27 +74,53 @@ function createShipSelector(player) {
         ship: null
     };
 
-    player.availableShips.forEach((ship) => {
-        const shipButton = document.createElement('button');
-        shipButton.classList.add('ship');
-        shipButton.textContent = ship.name;
-        
+    const shipButtons = {};
 
-        shipButton.addEventListener('click', () => {
-            if (selectedButton) {
-                selectedButton.classList.remove('selected');
+    function updateButtons() {
+        player.availableShips.forEach((ship) => {
+            if (!shipButtons[ship.name]) {
+                const shipButton = document.createElement('button');
+                shipButton.classList.add('ship');
+                shipButton.textContent = ship.name;
+                
+                shipButton.addEventListener('click', () => {
+                    if (selectedButton) {
+                        selectedButton.classList.remove('selected');
+                    }
+                    shipButton.classList.add('selected');
+                    selectedButton = shipButton;
+                    selection.ship = ship;
+                });
+
+                shipContainer.appendChild(shipButton);
+                shipButtons[ship.name] = shipButton;
             }
-            shipButton.classList.add('selected');
-            selectedButton = shipButton;
-            selection.ship = ship;
         });
 
-        shipContainer.appendChild(shipButton);
-    });
+        // Remove buttons for ships that have been placed
+        Object.entries(shipButtons).forEach(([shipName, button]) => {
+            const shipExists = player.availableShips.some(ship => ship.name === shipName);
+            if (!shipExists) {
+                button.remove();
+                delete shipButtons[shipName];
+            }
+        });
+    }
+
+    updateButtons();
 
     return {
         element: shipContainer,
-        selection
+        selection,
+        clearSelection() {
+            if (selectedButton) {
+                selectedButton.classList.remove('selected');
+                selectedButton = null;
+            }
+            selection.ship = null;
+            updateButtons();
+        },
+        updateButtons
     };
 }
 
@@ -121,12 +157,14 @@ function createOrientationSelector() {
 function renderShips(player , board) {
     for (let row = 0; row < 10; row++) {
         for (let col = 0; col < 10; col++) {
+            const cell = board.children[row * 10 + col];
             if (player.gameboard.board[row][col] !== null) {
-                const cell = board.children[row * 10 + col];
                 cell.classList.add('ship-placed');
+            } else {
+                cell.classList.remove('ship-placed');
             }
         }
-}
+    }
 }
 
 export function renderGame(game) {
