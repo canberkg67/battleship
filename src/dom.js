@@ -17,6 +17,15 @@ function createBoard(player) {
             cell.classList.add('cell');
             cell.dataset.row = row;
             cell.dataset.col = col;
+
+            cell.addEventListener('click', () => {
+                const coordinates = [
+                    Number(cell.dataset.row),
+                    Number(cell.dataset.col)
+                ];
+                console.log("Clicked cell coordinates:", coordinates);
+            });
+
             board.appendChild(cell);
         }
     }
@@ -54,6 +63,31 @@ function createShipSelector(player) {
     });
 
     return shipContainer;
+}
+
+function createOrientationSelector() {
+    const orientationContainer = document.createElement('div');
+
+    let selectedOrientation = 'horizontal';
+
+    const horizontalButton = document.createElement('button');
+    horizontalButton.textContent = 'Horizontal';
+
+    const verticalButton = document.createElement('button');
+    verticalButton.textContent = 'Vertical';
+
+    horizontalButton.addEventListener('click', () => {
+        selectedOrientation = 'horizontal';
+    });
+
+    verticalButton.addEventListener('click', () => {
+        selectedOrientation = 'vertical';
+    });
+
+    orientationContainer.appendChild(horizontalButton);
+    orientationContainer.appendChild(verticalButton);
+
+    return orientationContainer;
 }
 
 export function renderGame(game) {
