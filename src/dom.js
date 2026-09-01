@@ -11,10 +11,14 @@ function createBoard(player) {
     const board = document.createElement('div');
     board.classList.add('board');
 
-    for (let i = 0; i < 100; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        board.appendChild(cell);
+    for (let row = 0; row < 10; row++) {
+        for (let col = 0; col < 10; col++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.dataset.row = row;
+            cell.dataset.col = col;
+            board.appendChild(cell);
+        }
     }
 
     playerSection.appendChild(title);
