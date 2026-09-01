@@ -34,6 +34,10 @@ function createShipSelector(player) {
         shipButton.textContent = ship.name;
         shipButton.dataset.ship = ship.name;
 
+        shipButton.addEventListener('click', () => {
+            shipButton.classList.toggle('selected'); 
+        });
+
         shipContainer.appendChild(shipButton);
     });
 

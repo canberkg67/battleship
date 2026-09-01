@@ -46,5 +46,9 @@ body {
     border: 1px solid black;
 }
 
+.ship.selected {
+    background-color: #407494;
+}
+
 
 
