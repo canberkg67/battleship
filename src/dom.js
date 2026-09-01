@@ -29,9 +29,12 @@ function createBoard(player) {
             board.appendChild(cell);
         }
     }
+    
+    const orientationSelector = createOrientationSelector(player);
 
     playerSection.appendChild(title);
     playerSection.appendChild(shipSelector);
+    playerSection.appendChild(orientationSelector);
     playerSection.appendChild(board);
 
     return playerSection;
