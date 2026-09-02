@@ -155,6 +155,40 @@ function createOrientationSelector() {
     };
 }
 
+function createFleetInfo(player) {
+    const container = document.createElement('div');
+    container.classList.add('fleet-info');
+
+    const title = document.createElement('h3');
+    title.textContent = 'Ships';
+
+    container.appendChild(title);
+
+    player.availableShips.forEach((ship) => {
+        const shipInfo = document.createElement('div');
+        shipInfo.classList.add('ship-info');
+
+        const name = document.createElement('span');
+        name.textContent = ship.name;
+
+        const cells = document.createElement('div');
+        cells.classList.add('ship-info-cells');
+
+        for (let i = 0; i < ship.length; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('ship-info-cell');
+            cells.appendChild(cell);
+        }
+
+        shipInfo.appendChild(name);
+        shipInfo.appendChild(cells);
+
+        container.appendChild(shipInfo);
+    });
+
+    return container;
+}
+
 function renderShips(player , board) {
     for (let row = 0; row < 10; row++) {
         for (let col = 0; col < 10; col++) {
@@ -169,8 +203,12 @@ function renderShips(player , board) {
 }
 
 export function renderGame(game) {
+    const fleetInfo = createFleetInfo(game.player1);
+
     const player1Board = createBoard(game.player1);
     const player2Board = createBoard(game.player2);
+    
+    gameContainer.appendChild(fleetInfo);
     gameContainer.appendChild(player1Board);
     gameContainer.appendChild(player2Board);
 }

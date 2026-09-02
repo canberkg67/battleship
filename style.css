@@ -145,3 +145,45 @@ button:active {
     width: 350px;
     height: 30px;
 }
+
+.fleet-info {
+    width: 180px;
+    padding: 20px;
+
+    background-color: rgba(10, 35, 50, 0.9);
+    border: 1px solid #6f94aa;
+    border-radius: 6px;
+
+    color: #f5f9fc;
+}
+
+.fleet-info h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #d9eaf2;
+}
+
+.ship-info {
+    margin-bottom: 30px;
+}
+
+.ship-info span {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #f5f9fc;
+    font-weight: 600;
+}
+
+.ship-info-cells {
+    display: flex;
+    gap: 5px;
+}
+
+.ship-info-cell {
+    width: 14px;
+    height: 14px;
+
+    background-color: #407494;
+    border: 1px solid #6f94aa;
+}
