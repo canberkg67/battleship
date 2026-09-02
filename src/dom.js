@@ -126,6 +126,7 @@ function createShipSelector(player) {
 
 function createOrientationSelector() {
     const orientationContainer = document.createElement('div');
+    orientationContainer.classList.add('orientation-container');
 
     const orientation = {
         value: 'horizontal'
