@@ -189,6 +189,40 @@ function createFleetInfo(player) {
     return container;
 }
 
+function createIntroModal() {
+    const overlay = document.createElement('div');
+    overlay.classList.add('intro-overlay');
+
+    const modal = document.createElement('div');
+    modal.classList.add('intro-modal');
+
+    const title = document.createElement('h2');
+    title.textContent = 'WELCOME ADMIRAL!';
+
+    const description = document.createElement('div');
+    description.innerHTML =
+        `<p>Choose ships and their orientations</p>
+        <p>Deploy your ships by clicking on the cells</p>
+        <p>Click on the enemy board to attack</p>
+        <p>Sink all enemy ships to win</p>
+        `;
+
+    const startButton = document.createElement('button');
+    startButton.textContent = 'START';
+
+    startButton.addEventListener('click', () => {
+        overlay.remove();
+    });
+
+    modal.appendChild(title);
+    modal.appendChild(description);
+    modal.appendChild(startButton);
+
+    overlay.appendChild(modal);
+
+    return overlay;
+}
+
 function renderShips(player , board) {
     for (let row = 0; row < 10; row++) {
         for (let col = 0; col < 10; col++) {
@@ -211,5 +245,8 @@ export function renderGame(game) {
     gameContainer.appendChild(fleetInfo);
     gameContainer.appendChild(player1Board);
     gameContainer.appendChild(player2Board);
+
+    const introModal = createIntroModal();
+    document.body.appendChild(introModal);
 }
 
