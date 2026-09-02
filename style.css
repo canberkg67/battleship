@@ -107,6 +107,8 @@ h2 {
     font-weight: 600;
 }
 
+/* Buttons */
+
 button {
     font-family: "Barlow Condensed", sans-serif;
     font-size: 16px;
@@ -135,6 +137,8 @@ button:active {
     transform: translateY(1px);
 }
 
+/* Music Player */
+
 .music-player {
     display: flex;
     justify-content: center;
@@ -145,6 +149,8 @@ button:active {
     width: 350px;
     height: 30px;
 }
+
+/* Fleet Info */
 
 .fleet-info {
     width: 180px;
@@ -186,4 +192,54 @@ button:active {
 
     background-color: #407494;
     border: 1px solid #6f94aa;
+}
+
+
+/* Intro */
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgba(5, 20, 30, 0.75);
+
+    z-index: 1000;
+}
+
+.intro-modal {
+    width: 450px;
+    padding: 40px;
+
+    text-align: center;
+
+    background-color: rgba(10, 35, 50, 0.95);
+
+    border: 1px solid #6f94aa;
+    border-radius: 6px;
+
+    color: #f5f9fc;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.intro-modal h2 {
+    margin-bottom: 20px;
+    color: #f5f9fc;
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+.intro-modal p {
+    margin-bottom: 30px;
+    color: #d9eaf2;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.intro-modal button {
+    padding: 10px 25px;
+    font-size: 18px;
 }
