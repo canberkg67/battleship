@@ -190,6 +190,8 @@ function createFleetInfo(player) {
 }
 
 function createIntroModal() {
+    const sound = new Audio('../audio/universfield-cannon-shot-352459.mp3');
+    
     const overlay = document.createElement('div');
     overlay.classList.add('intro-overlay');
 
@@ -211,6 +213,7 @@ function createIntroModal() {
     startButton.textContent = 'START';
 
     startButton.addEventListener('click', () => {
+        sound.play();
         overlay.remove();
     });
 
