@@ -30,6 +30,17 @@
 body {
     min-height: 100vh;
     font-family: "Barlow Condensed", sans-serif;
+
+    background-image:
+        linear-gradient(
+            rgba(5, 20, 30, 0.75), 
+            rgba(5, 20, 30, 0.75)
+            ),
+        url("./images/pexels-francesco-ungaro-17598831.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .board {
