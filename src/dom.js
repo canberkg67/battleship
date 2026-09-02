@@ -9,6 +9,8 @@ function createBoard(player) {
     const shipSelector = createShipSelector(player);
     const orientationSelector = createOrientationSelector();
 
+    const placementSound = new Audio('../audio/ship-bell.mp3');
+
     const board = document.createElement('div');
     board.classList.add('board');
 
@@ -35,6 +37,9 @@ function createBoard(player) {
 
                 try {
                     player.gameboard.placeShip(selectedShip, coordinates, orientation);
+
+                    placementSound.currentTime = 0; // Reset the sound to the beginning after each play
+                    placementSound.play();
                     
                     // Remove the placed ship from available ships
                     const shipIndex = player.availableShips.indexOf(selectedShip);
