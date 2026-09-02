@@ -190,7 +190,7 @@ function createFleetInfo(player) {
 }
 
 function createIntroModal() {
-    const sound = new Audio('../audio/universfield-cannon-shot-352459.mp3');
+    const sound = new Audio('../audio/cannon-shot.mp3');
     
     const overlay = document.createElement('div');
     overlay.classList.add('intro-overlay');
@@ -203,10 +203,10 @@ function createIntroModal() {
 
     const description = document.createElement('div');
     description.innerHTML =
-        `<p>Choose ships and their orientations</p>
-        <p>Deploy your ships by clicking on the cells</p>
-        <p>Click on the enemy board to attack</p>
-        <p>Sink all enemy ships to win</p>
+        `<p>- Choose ships and their orientations</p>
+        <p>- Deploy your ships by clicking on the cells</p>
+        <p>- Click on the enemy board to attack</p>
+        <p>- Sink all enemy ships to win</p>
         `;
 
     const startButton = document.createElement('button');
