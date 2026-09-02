@@ -44,6 +44,7 @@ body {
 
 .cell {
     border: 1px solid black;
+    background-color: rgba(30, 100, 140, 0.7);
 }
 
 .ship-container {
@@ -58,7 +59,7 @@ body {
 }
 
 .ship-placed {
-    background-color: #407494;
+    background-color: #263238;
     border: 2px solid #2a4d6f;
 }
 
