@@ -134,3 +134,14 @@ button:hover {
 button:active {
     transform: translateY(1px);
 }
+
+.music-player {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.music-player audio {
+    width: 350px;
+    height: 30px;
+}
