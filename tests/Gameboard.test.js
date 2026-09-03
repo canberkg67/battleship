@@ -72,7 +72,7 @@ describe('Gameboard', () => {
         const ship = new Ship(3);
         gameboard.placeShip(ship, [0, 0], 'horizontal');
         gameboard.receiveAttack([1, 1]);
-        expect(gameboard.missedAttacks).toContainEqual([1, 1]);
+        expect(gameboard.attackedCoordinates).toContainEqual([1, 1]);
     })
     test("Reports that not all ships are sunk", () => {
         const gameboard = new Gameboard();
@@ -110,7 +110,7 @@ describe('Gameboard', () => {
         gameboard.placeShip(ship, [0, 0], 'horizontal');
         gameboard.receiveAttack([1, 1]);
         gameboard.receiveAttack([1, 1]);
-        expect(gameboard.missedAttacks.length).toBe(1);
+        expect(gameboard.attackedCoordinates.length).toBe(1);
     });
 
 });

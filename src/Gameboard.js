@@ -3,7 +3,7 @@ import { Ship } from './Ship.js';
 export class Gameboard {
     constructor() {
         this.ships = [];
-        this.missedAttacks = [];
+        this.attackedCoordinates = [];
         this.board = Array.from({ length: 10 }, () => Array(10).fill(null));
     }
 
@@ -13,8 +13,8 @@ export class Gameboard {
         const [x, y] = coordinates; // x is the row index, y is the column index
 
         // Check if the ship placement is out of bounds
-        if ( (orientation === 'horizontal' && y + ship.length > 10) || 
-            (orientation === 'vertical' && x + ship.length > 10) ) {
+        if ((orientation === 'horizontal' && y + ship.length > 10) ||
+            (orientation === 'vertical' && x + ship.length > 10)) {
             throw new Error("Ship placement is out of bounds");
         }
 
@@ -36,20 +36,31 @@ export class Gameboard {
                 this.board[x + i][y] = ship; // same column but rows incremented by i
             }
         }
-        
+
         this.ships.push(ship);
     }
 
     receiveAttack(coordinates) {
         const [x, y] = coordinates;
+
+        const alreadyAttacked = this.attackedCoordinates.some(
+            ([row, col]) => row === x && col === y
+        );
+
+        if (alreadyAttacked) {
+            return null;
+        }
+
+        this.attackedCoordinates.push(coordinates);
+
         const target = this.board[x][y];
+
         if (target) {
             target.hit();
-            return true; 
-        } else {
-            this.missedAttacks.push(coordinates);
-            return false;
+            return true;
         }
+
+        return false;
     }
 
     allShipsSunk() {
