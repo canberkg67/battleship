@@ -271,7 +271,7 @@ export function renderGame(game) {
     const player1Board = createBoard(game.player1);
     const player2Board = createBoard(game.player2);
     
-    gameContainer.appendChild(gameStatusElement);
+    gameContainer.parentElement.insertBefore(gameStatusElement, gameContainer);
     gameContainer.appendChild(fleetInfo);
     gameContainer.appendChild(player1Board);
     gameContainer.appendChild(player2Board);
