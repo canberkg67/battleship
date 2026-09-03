@@ -3,7 +3,7 @@ const gameContainer = document.getElementById('game-container');
 let gamePhase = 'placement'; // 'placement' or 'battle'
 let gameStatus;
 
-function createBoard(player) {
+function createBoard(player, game) {
     const playerSection = document.createElement('section');
 
     const title = document.createElement('h2');
@@ -25,48 +25,72 @@ function createBoard(player) {
             cell.dataset.col = col;
 
             cell.addEventListener('click', () => {
-                const selectedShip = shipSelector.selection.ship;
-                
-                if (!selectedShip) {
+
+                if (gamePhase === "placement") {
+                    const selectedShip = shipSelector.selection.ship;
+                    if (!selectedShip) {
+                        return;
+                    }
+                    const coordinates = [
+                        Number(cell.dataset.row),
+                        Number(cell.dataset.col)
+                    ];
+                    const orientation = orientationSelector.orientation.value;
+
+                    try {
+                        player.gameboard.placeShip(selectedShip, coordinates, orientation);
+
+                        placementSound.currentTime = 0; // Reset the sound to the beginning after each play
+                        placementSound.play();
+
+                        // Remove the placed ship from available ships
+                        const shipIndex = player.availableShips.indexOf(selectedShip);
+                        if (shipIndex > -1) {
+                            player.availableShips.splice(shipIndex, 1);
+                        }
+
+                        // Clear selection and update ship buttons
+                        shipSelector.clearSelection();
+                        renderShips(player, board);
+                        if (player.availableShips.length === 0) {
+                            // All ships placed, switch to battle phase
+                            gamePhase = 'battle';
+                            startBattle();
+                        }
+                    } catch (error) {
+                        console.error(error.message);
+                    }
                     return;
                 }
 
-                const coordinates = [
-                    Number(cell.dataset.row),
-                    Number(cell.dataset.col)
-                ];
-                
-                const orientation = orientationSelector.orientation.value;
-
-                try {
-                    player.gameboard.placeShip(selectedShip, coordinates, orientation);
-
-                    placementSound.currentTime = 0; // Reset the sound to the beginning after each play
-                    placementSound.play();
-                    
-                    // Remove the placed ship from available ships
-                    const shipIndex = player.availableShips.indexOf(selectedShip);
-                    if (shipIndex > -1) {
-                        player.availableShips.splice(shipIndex, 1);
+                if (gamePhase === "battle") {
+                    if (game.currentPlayer !== game.player1) {
+                        return;
                     }
-                    
-                    // Clear selection and update ship buttons
-                    shipSelector.clearSelection();
-                    renderShips(player, board);
-                    if (player.availableShips.length === 0) {
-                        // All ships placed, switch to battle phase
-                        gamePhase = 'battle';
-                        startBattle();
+
+                    if (player !== game.player2) {
+                        return;
                     }
-                } catch (error) {
-                    console.error(error.message);
+
+                    const coordinates = [
+                        Number(cell.dataset.row),
+                        Number(cell.dataset.col)
+                    ];
+
+                    const hit = game.playTurn(coordinates);
+
+                    if (hit) {
+                        cell.textContent = 'X';
+                    } else {
+                        cell.textContent = '-';
+                    }
                 }
-            });
-
+        
+        });
             board.appendChild(cell);
         }
     }
-    
+
 
     playerSection.appendChild(title);
     playerSection.appendChild(shipSelector.element);
@@ -108,7 +132,7 @@ function createShipSelector(player) {
                 const shipButton = document.createElement('button');
                 shipButton.classList.add('ship');
                 shipButton.textContent = ship.name;
-                
+
                 shipButton.addEventListener('click', () => {
                     if (selectedButton) {
                         selectedButton.classList.remove('selected');
@@ -217,7 +241,7 @@ function createFleetInfo(player) {
 
 function createIntroModal() {
     const sound = new Audio('../audio/cannon-shot.mp3');
-    
+
     const overlay = document.createElement('div');
     overlay.classList.add('intro-overlay');
 
@@ -252,7 +276,7 @@ function createIntroModal() {
     return overlay;
 }
 
-function renderShips(player , board) {
+function renderShips(player, board) {
     for (let row = 0; row < 10; row++) {
         for (let col = 0; col < 10; col++) {
             const cell = board.children[row * 10 + col];
@@ -270,9 +294,9 @@ export function renderGame(game) {
 
     const fleetInfo = createFleetInfo(game.player1);
 
-    const player1Board = createBoard(game.player1);
-    const player2Board = createBoard(game.player2);
-    
+    const player1Board = createBoard(game.player1, game);
+    const player2Board = createBoard(game.player2, game);
+
     gameContainer.parentElement.insertBefore(gameStatusElement, gameContainer);
     gameContainer.appendChild(fleetInfo);
     gameContainer.appendChild(player1Board);
