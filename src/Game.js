@@ -22,6 +22,7 @@ export class Game {
         if (!hit) {
             this.switchPlayer();
         }
+        return hit;
     }
 
     isGameOver() {

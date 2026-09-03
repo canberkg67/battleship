@@ -1,5 +1,7 @@
 const gameContainer = document.getElementById('game-container');
 
+let gamePhase = 'placement'; // 'placement' or 'battle'
+
 function createBoard(player) {
     const playerSection = document.createElement('section');
 
@@ -50,6 +52,11 @@ function createBoard(player) {
                     // Clear selection and update ship buttons
                     shipSelector.clearSelection();
                     renderShips(player, board);
+                    if (player.availableShips.length === 0) {
+                        // All ships placed, switch to battle phase
+                        gamePhase = 'battle';
+                        startBattle();
+                    }
                 } catch (error) {
                     console.error(error.message);
                 }
@@ -66,6 +73,10 @@ function createBoard(player) {
     playerSection.appendChild(board);
 
     return playerSection;
+}
+
+function startBattle() {
+    console.log('Battle started');
 }
 
 
