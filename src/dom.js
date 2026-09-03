@@ -84,6 +84,8 @@ function createGameStatus() {
 
 function startBattle() {
     console.log('Battle started');
+    const sound = new Audio('../audio/battle-start-horn.mp3');
+    sound.play();
     gameStatus.textContent = 'YOUR TURN: ATTACK THE ENEMY FLEET';
 }
 
