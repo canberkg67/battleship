@@ -55,7 +55,7 @@ function createBoard(player, game) {
                         // Clear selection and update ship buttons
                         shipSelector.clearSelection();
                         renderShips(player, board);
-                        if (game.player1.availableShips.length === 0 && 
+                        if (game.player1.availableShips.length === 0 &&
                             game.player2.availableShips.length === 0) {
                             // All ships placed, switch to battle phase
                             gamePhase = 'battle';
@@ -68,11 +68,12 @@ function createBoard(player, game) {
                 }
 
                 if (gamePhase === "battle") {
-                    if (game.currentPlayer !== game.player1) {
-                        return;
-                    }
+                    const enemy =
+                        game.currentPlayer === game.player1
+                            ? game.player2
+                            : game.player1;
 
-                    if (player !== game.player2) {
+                    if (player !== enemy) {
                         return;
                     }
 
@@ -86,19 +87,24 @@ function createBoard(player, game) {
                     if (hit) {
                         cell.textContent = 'X';
                         cell.classList.add('hit');
-                        
+
                         hitSound.currentTime = 0;
                         hitSound.play();
                     } else {
                         cell.textContent = '—';
                         cell.classList.add('miss');
-                        
+
                         missSound.currentTime = 0;
                         missSound.play();
                     }
+
+                    if (game.isGameOver()) {
+                        const winner = game.getWinner();
+                        console.log(`${winner.name} wins!`);
+                    }
                 }
-        
-        });
+
+            });
             board.appendChild(cell);
         }
     }
