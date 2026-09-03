@@ -1,6 +1,7 @@
 const gameContainer = document.getElementById('game-container');
 
 let gamePhase = 'placement'; // 'placement' or 'battle'
+let gameStatus;
 
 function createBoard(player) {
     const playerSection = document.createElement('section');
@@ -75,8 +76,15 @@ function createBoard(player) {
     return playerSection;
 }
 
+function createGameStatus() {
+    gameStatus = document.createElement('h2');
+    gameStatus.textContent = 'DEPLOY YOUR FLEET';
+    return gameStatus;
+}
+
 function startBattle() {
     console.log('Battle started');
+    gameStatus.textContent = 'YOUR TURN: ATTACK THE ENEMY FLEET';
 }
 
 
@@ -256,11 +264,14 @@ function renderShips(player , board) {
 }
 
 export function renderGame(game) {
+    const gameStatusElement = createGameStatus();
+
     const fleetInfo = createFleetInfo(game.player1);
 
     const player1Board = createBoard(game.player1);
     const player2Board = createBoard(game.player2);
     
+    gameContainer.appendChild(gameStatusElement);
     gameContainer.appendChild(fleetInfo);
     gameContainer.appendChild(player1Board);
     gameContainer.appendChild(player2Board);
