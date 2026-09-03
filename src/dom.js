@@ -13,6 +13,8 @@ function createBoard(player, game) {
     const orientationSelector = createOrientationSelector();
 
     const placementSound = new Audio('../audio/ship-bell.mp3');
+    const hitSound = new Audio('../audio/cannon-shot.mp3');
+    const missSound = new Audio('../audio/splash.mp3');
 
     const board = document.createElement('div');
     board.classList.add('board');
@@ -82,8 +84,12 @@ function createBoard(player, game) {
 
                     if (hit) {
                         cell.textContent = 'X';
+                        hitSound.currentTime = 0;
+                        hitSound.play();
                     } else {
                         cell.textContent = '-';
+                        missSound.currentTime = 0;
+                        missSound.play();
                     }
                 }
         
