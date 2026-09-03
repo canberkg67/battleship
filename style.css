@@ -267,3 +267,7 @@ button:active {
     align-items: center;
     font-size: 22px;
 }
+
+.hidden {
+    display: none;
+}

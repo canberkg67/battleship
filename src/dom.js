@@ -11,6 +11,7 @@ function createBoard(player, game) {
 
     const shipSelector = createShipSelector(player);
     const orientationSelector = createOrientationSelector();
+    orientationSelector.element.classList.add('placement-control');
 
     const placementSound = new Audio('../audio/ship-bell.mp3');
     const hitSound = new Audio('../audio/cannon-shot.mp3');
@@ -122,6 +123,10 @@ function startBattle() {
     const sound = new Audio('../audio/battle-start-horn.mp3');
     sound.play();
     gameStatus.textContent = 'YOUR TURN: ATTACK THE ENEMY FLEET';
+
+    document.querySelectorAll('.placement-control').forEach(element => {
+        element.classList.add('hidden');
+    });
 }
 
 
