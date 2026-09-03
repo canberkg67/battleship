@@ -17,6 +17,8 @@ function createBoard(player, game) {
     const hitSound = new Audio('../audio/cannon-shot.mp3');
     const missSound = new Audio('../audio/splash.mp3');
     const sinkSound = new Audio('../audio/sink.mp3');
+    const winSound = new Audio('../audio/win.mp3');
+    const lostSound = new Audio('../audio/lost.mp3');
 
     const board = document.createElement('div');
     board.classList.add('board');
@@ -119,6 +121,14 @@ function createBoard(player, game) {
                         console.log(`${winner.name} wins!`);
 
                         gamePhase = 'game-over';
+
+                        if (winner === game.player1) {
+                            winSound.currentTime = 0;
+                            winSound.play();
+                        } else {
+                            lostSound.currentTime = 0;
+                            lostSound.play();
+                        }
 
                         const gameOverModal = createGameOverModal(game, winner);
                         document.body.appendChild(gameOverModal);

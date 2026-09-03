@@ -3,9 +3,10 @@ import { Ship } from '../src/Ship.js';
 
 export class Game {
     constructor() {
-        this.player1 = new Player("Player 1");
-        this.player2 = new Player("Player 2");
+        this.player1 = new Player("You");
+        this.player2 = new Player("Enemy");
         this.currentPlayer = this.player1;
+        this.turn = 0;
         this.player1.availableShips = this.createShips();
         this.player2.availableShips = this.createShips();
     }
@@ -29,6 +30,8 @@ export class Game {
         if (hit === null) { // If the attack is invalid like attacking same cell.
             return null;
         }
+
+        this.turn++; // Increment the turn count after a valid attack
 
         if (!hit) {
             this.switchPlayer();
