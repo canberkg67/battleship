@@ -52,7 +52,8 @@ function createBoard(player, game) {
                         // Clear selection and update ship buttons
                         shipSelector.clearSelection();
                         renderShips(player, board);
-                        if (player.availableShips.length === 0) {
+                        if (game.player1.availableShips.length === 0 && 
+                            game.player2.availableShips.length === 0) {
                             // All ships placed, switch to battle phase
                             gamePhase = 'battle';
                             startBattle();
