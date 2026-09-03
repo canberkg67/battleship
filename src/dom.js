@@ -1,6 +1,6 @@
 const gameContainer = document.getElementById('game-container');
 
-let gamePhase = 'placement'; // 'placement' or 'battle'
+let gamePhase = 'placement'; // 'placement' or 'battle' or 'game-over'
 let gameStatus;
 
 function createBoard(player, game) {
@@ -105,6 +105,8 @@ function createBoard(player, game) {
                     if (game.isGameOver()) {
                         const winner = game.getWinner();
                         console.log(`${winner.name} wins!`);
+                        
+                        gamePhase = 'game-over';
                     }
                 }
 
