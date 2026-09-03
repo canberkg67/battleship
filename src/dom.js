@@ -93,6 +93,12 @@ function createBoard(player, game , turnCounter) {
 
                     turnCounter.textContent = `TURN: ${game.turn}`;
 
+                    if (game.currentPlayer === game.player1) {
+                        gameStatus.textContent = 'YOUR TURN: ATTACK THE ENEMY FLEET';
+                    } else {
+                        gameStatus.textContent = 'ENEMY TURN: WAIT FOR YOUR TURN';
+                    }
+
                     if (hit === "sunk") {
                         cell.textContent = 'X';
                         cell.classList.add('hit');
