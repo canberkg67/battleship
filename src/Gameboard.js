@@ -57,6 +57,11 @@ export class Gameboard {
 
         if (target) {
             target.hit();
+                
+            if (target.isSunk()) {
+                    return "sunk";
+                }
+            
             return true;
         }
 

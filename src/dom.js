@@ -16,6 +16,7 @@ function createBoard(player, game) {
     const placementSound = new Audio('../audio/ship-bell.mp3');
     const hitSound = new Audio('../audio/cannon-shot.mp3');
     const missSound = new Audio('../audio/splash.mp3');
+    const sinkSound = new Audio('../audio/sink.mp3');
 
     const board = document.createElement('div');
     board.classList.add('board');
@@ -88,7 +89,18 @@ function createBoard(player, game) {
                         return;
                     }
 
-                    if (hit) {
+                    if (hit === "sunk") {
+                        cell.textContent = 'X';
+                        cell.classList.add('hit');
+                        
+                        hitSound.currentTime = 0;
+                        hitSound.play();
+
+                        hitSound.onended = () => { // Play the sink sound after the hit sound finishes
+                            sinkSound.currentTime = 0;
+                            sinkSound.play();
+                        };
+                    } else if (hit) {
                         cell.textContent = 'X';
                         cell.classList.add('hit');
 
