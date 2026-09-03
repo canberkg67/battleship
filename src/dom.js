@@ -83,7 +83,7 @@ function createBoard(player, game) {
                     ];
 
                     const hit = game.playTurn(coordinates);
-                    
+
                     if (hit === null) {
                         return;
                     }
@@ -105,8 +105,11 @@ function createBoard(player, game) {
                     if (game.isGameOver()) {
                         const winner = game.getWinner();
                         console.log(`${winner.name} wins!`);
-                        
+
                         gamePhase = 'game-over';
+
+                        const gameOverModal = createGameOverModal(game, winner);
+                        document.body.appendChild(gameOverModal);
                     }
                 }
 
@@ -303,6 +306,37 @@ function createIntroModal() {
 
     return overlay;
 }
+
+function createGameOverModal(game,winner) {
+    const overlay = document.createElement('div');
+    overlay.classList.add('game-over-overlay');
+
+    const modal = document.createElement('div');
+    modal.classList.add('game-over-modal');
+
+    const title = document.createElement('h2');
+
+    if (winner === game.player1) {
+        title.textContent = 'YOU WIN!';
+    } else {
+        title.textContent = 'YOU LOST!';
+    }
+
+    const message = document.createElement('p');
+
+    if (winner === game.player1) {
+        message.textContent = 'All enemy ships have been sunk.';
+    } else {
+        message.textContent = 'Your fleet has been destroyed.';
+    }
+
+    modal.appendChild(title);
+    modal.appendChild(message);
+    overlay.appendChild(modal);
+
+    return overlay;
+}
+
 
 function renderShips(player, board) {
     for (let row = 0; row < 10; row++) {
