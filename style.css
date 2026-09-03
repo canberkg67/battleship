@@ -249,3 +249,21 @@ button:active {
     padding: 10px 25px;
     font-size: 18px;
 }
+
+.hit {
+    color: #bf1111;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+.miss {
+    color: #4cb6e7;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+}

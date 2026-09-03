@@ -84,10 +84,14 @@ function createBoard(player, game) {
 
                     if (hit) {
                         cell.textContent = 'X';
+                        cell.classList.add('hit');
+                        
                         hitSound.currentTime = 0;
                         hitSound.play();
                     } else {
-                        cell.textContent = '-';
+                        cell.textContent = '—';
+                        cell.classList.add('miss');
+                        
                         missSound.currentTime = 0;
                         missSound.play();
                     }
