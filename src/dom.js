@@ -83,6 +83,10 @@ function createBoard(player, game) {
                     ];
 
                     const hit = game.playTurn(coordinates);
+                    
+                    if (hit === null) {
+                        return;
+                    }
 
                     if (hit) {
                         cell.textContent = 'X';

@@ -16,12 +16,24 @@ export class Game {
     }
 
     playTurn(coordinates) {
-        const enemy = this.currentPlayer === this.player1 ? this.player2 : this.player1;
-        const hit = this.currentPlayer.attack(enemy.gameboard, coordinates);
+        const enemy =
+            this.currentPlayer === this.player1
+                ? this.player2
+                : this.player1;
+
+        const hit = this.currentPlayer.attack(
+            enemy.gameboard,
+            coordinates
+        );
+
+        if (hit === null) { // If the attack is invalid like attacking same cell.
+            return null;
+        }
 
         if (!hit) {
             this.switchPlayer();
         }
+
         return hit;
     }
 
@@ -37,8 +49,8 @@ export class Game {
         }
         return null;
     }
-    
-    createShips () {
+
+    createShips() {
         return [
             new Ship(5, "Carrier"),
             new Ship(4, "Battleship"),
