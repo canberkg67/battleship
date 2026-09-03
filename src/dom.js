@@ -3,7 +3,7 @@ const gameContainer = document.getElementById('game-container');
 let gamePhase = 'placement'; // 'placement' or 'battle' or 'game-over'
 let gameStatus;
 
-function createBoard(player, game) {
+function createBoard(player, game , turnCounter) {
     const playerSection = document.createElement('section');
 
     const title = document.createElement('h2');
@@ -91,6 +91,8 @@ function createBoard(player, game) {
                         return;
                     }
 
+                    turnCounter.textContent = `TURN: ${game.turn}`;
+
                     if (hit === "sunk") {
                         cell.textContent = 'X';
                         cell.classList.add('hit');
@@ -149,10 +151,23 @@ function createBoard(player, game) {
     return playerSection;
 }
 
-function createGameStatus() {
+function createGameStatus(game) {
+    const container = document.createElement('div');
+    container.classList.add('game-status');
+
     gameStatus = document.createElement('h2');
     gameStatus.textContent = 'DEPLOY YOUR FLEET';
-    return gameStatus;
+
+    const turnCounter = document.createElement('p');
+    turnCounter.textContent = `TURN: ${game.turn}`;
+
+    container.appendChild(gameStatus);
+    container.appendChild(turnCounter);
+
+    return {
+        element: container,
+        turnCounter
+    };
 }
 
 function startBattle() {
@@ -374,14 +389,17 @@ function renderShips(player, board) {
 }
 
 export function renderGame(game) {
-    const gameStatusElement = createGameStatus();
+    const gameStatusElement = createGameStatus(game);
 
     const fleetInfo = createFleetInfo(game.player1);
 
-    const player1Board = createBoard(game.player1, game);
-    const player2Board = createBoard(game.player2, game);
+    const player1Board = createBoard(game.player1, game , gameStatusElement.turnCounter);
+    const player2Board = createBoard(game.player2, game, gameStatusElement.turnCounter);
 
-    gameContainer.parentElement.insertBefore(gameStatusElement, gameContainer);
+    gameContainer.parentElement.insertBefore(
+        gameStatusElement.element,
+        gameContainer
+    );
     gameContainer.appendChild(fleetInfo);
     gameContainer.appendChild(player1Board);
     gameContainer.appendChild(player2Board);

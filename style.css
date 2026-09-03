@@ -311,3 +311,24 @@ button:active {
 .game-over-modal p {
     font-size: 20px;
 }
+
+.game-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.game-status h2 {
+    text-align: center;
+}
+
+.game-status p {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f5f9fc;
+}
