@@ -63,4 +63,10 @@ describe('Game', () => {
         expect(game.player1.availableShips.length).toBe(5);
         expect(game.player2.availableShips.length).toBe(5);
     });
+    test("AI can choose attack coordinates", () => {
+        const game = new Game();
+        const result = game.playAITurn();
+        expect(result.coordinates).toHaveLength(2);
+        expect(game.player1.gameboard.attackedCoordinates).toHaveLength(1);
+    });
 });

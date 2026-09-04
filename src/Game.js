@@ -1,10 +1,12 @@
 import { Player } from '../src/Player.js';
 import { Ship } from '../src/Ship.js';
+import { AI } from '../src/AI.js';
 
 export class Game {
     constructor() {
         this.player1 = new Player("YOU");
         this.player2 = new Player("ENEMY");
+        this.ai = new AI();
         this.currentPlayer = this.player1;
         this.turn = 0;
         this.player1.availableShips = this.createShips();
@@ -90,5 +92,11 @@ export class Game {
             }
         }
     }
+    }
+
+    playAITurn() {
+        const coordinates = this.ai.chooseAttack();
+        const result = this.player2.attack(this.player1.gameboard, coordinates);
+        return { coordinates, result };
     }
 }
