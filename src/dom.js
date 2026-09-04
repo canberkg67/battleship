@@ -13,6 +13,11 @@ function createBoard(player, game , turnCounter) {
     const orientationSelector = createOrientationSelector();
     orientationSelector.element.classList.add('placement-control');
 
+    if (player === game.player2) {
+        shipSelector.element.classList.add('hidden');
+        orientationSelector.element.classList.add('hidden');
+    }
+
     const placementSound = new Audio('../audio/ship-bell.mp3');
     const hitSound = new Audio('../audio/cannon-shot.mp3');
     const missSound = new Audio('../audio/splash.mp3');
@@ -33,6 +38,11 @@ function createBoard(player, game , turnCounter) {
             cell.addEventListener('click', () => {
 
                 if (gamePhase === "placement") {
+
+                    if (player !== game.player1) {
+                        return;
+                    }
+
                     const selectedShip = shipSelector.selection.ship;
                     if (!selectedShip) {
                         return;
@@ -58,9 +68,7 @@ function createBoard(player, game , turnCounter) {
                         // Clear selection and update ship buttons
                         shipSelector.clearSelection();
                         renderShips(player, board);
-                        if (game.player1.availableShips.length === 0 &&
-                            game.player2.availableShips.length === 0) {
-                            // All ships placed, switch to battle phase
+                        if (game.player1.availableShips.length === 0) {
                             gamePhase = 'battle';
                             startBattle();
                         }
