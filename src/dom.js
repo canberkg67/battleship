@@ -3,7 +3,7 @@ const gameContainer = document.getElementById('game-container');
 let gamePhase = 'placement'; // 'placement' or 'battle' or 'game-over'
 let gameStatus;
 
-function createBoard(player, game, turnCounter , targetBoard=null) {
+function createBoard(player, game, turnCounter, targetBoard = null) {
     const playerSection = document.createElement('section');
 
     const title = document.createElement('h2');
@@ -106,12 +106,8 @@ function createBoard(player, game, turnCounter , targetBoard=null) {
                     } else {
                         gameStatus.textContent = 'ENEMY TURN: WAIT FOR YOUR TURN';
 
-                        const aiAttack = game.playAITurn();
-                        if (aiAttack) {
-                            renderAIAttack(targetBoard, aiAttack.coordinates, aiAttack.result);
-                        }
+                        playAITurn(game, targetBoard, turnCounter);
                     }
-
                     if (hit === "sunk") {
                         const sunkShip =
                             enemy.gameboard.board[
@@ -194,21 +190,52 @@ function createBoard(player, game, turnCounter , targetBoard=null) {
     return playerSection;
 }
 
-function renderAIAttack(board, coordinates, result) {
-        const [row, col] = coordinates;
+function playAITurn(game, targetBoard, turnCounter) {
+    setTimeout(() => {
+        const aiAttack = game.playAITurn();
 
-        const cell = board.children[row * 10 + col];
-
-        if (result === "sunk") {
-            cell.textContent = "X";
-            cell.classList.add("hit");
-        } else if (result) {
-            cell.textContent = "X";
-            cell.classList.add("hit");
-        } else {
-            cell.textContent = "—";
-            cell.classList.add("miss");
+        if (!aiAttack) {
+            return;
         }
+
+        renderAIAttack(
+            targetBoard,
+            aiAttack.coordinates,
+            aiAttack.result
+        );
+        turnCounter.textContent = `TURN: ${game.turn}`;
+
+        if (game.isGameOver()) {
+            gamePhase = 'game-over';
+            const winner = game.getWinner();
+            const gameOverModal = createGameOverModal(game, winner);
+            document.body.appendChild(gameOverModal);
+            return;
+        }
+
+        if (aiAttack.result) {
+            playAITurn(game, targetBoard, turnCounter);
+        } else {
+            gameStatus.textContent = 'YOUR TURN: ATTACK THE ENEMY FLEET';
+        }
+    }, 800);
+}
+
+function renderAIAttack(board, coordinates, result) {
+    const [row, col] = coordinates;
+
+    const cell = board.children[row * 10 + col];
+
+    if (result === "sunk") {
+        cell.textContent = "X";
+        cell.classList.add("hit");
+    } else if (result) {
+        cell.textContent = "X";
+        cell.classList.add("hit");
+    } else {
+        cell.textContent = "—";
+        cell.classList.add("miss");
+    }
 }
 
 function createGameStatus(game) {
@@ -461,7 +488,7 @@ export function renderGame(game) {
     const fleetInfo = createFleetInfo(game.player1);
 
     const player1Board = createBoard(game.player1, game, gameStatusElement.turnCounter);
-    const player2Board = createBoard(game.player2, game, gameStatusElement.turnCounter , player1Board.board);
+    const player2Board = createBoard(game.player2, game, gameStatusElement.turnCounter, player1Board.board);
 
     gameContainer.parentElement.insertBefore(
         gameStatusElement.element,

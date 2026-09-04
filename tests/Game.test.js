@@ -74,4 +74,21 @@ describe('Game', () => {
         expect(result.coordinates).toHaveLength(2);
         expect(game.player1.gameboard.attackedCoordinates).toHaveLength(1);
     });
+    test("AI keeps the turn after a successful attack", () => {
+        const game = new Game();
+        game.currentPlayer = game.player2;
+        game.player1.gameboard = new Gameboard();
+        const ship = new Ship(2);
+        game.player1.gameboard.placeShip(ship, [0, 0], 'horizontal');
+        jest.spyOn(game.ai, 'chooseAttack')
+            .mockReturnValueOnce([0, 0])
+            .mockReturnValueOnce([0, 1]);
+
+        const firstAttack = game.playAITurn();
+        const secondAttack = game.playAITurn();
+
+        expect(firstAttack.result).toBe(true);
+        expect(secondAttack.result).toBe('sunk');
+        expect(game.currentPlayer).toBe(game.player2);
+    });
 });
