@@ -106,6 +106,8 @@ export class Game {
             return null;
         }
 
+        this.ai.processResult(coordinates, result);
+
         this.turn++;
 
         if (!result) {
