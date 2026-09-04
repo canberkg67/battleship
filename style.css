@@ -100,14 +100,20 @@ h1 {
     margin-bottom: 20px;
     margin-top: 20px;
     color: #F5F9FC;
-    letter-spacing: 2px;
+    letter-spacing: 10px;
     font-weight: 700;
 }
 
 h2 {
     color: #D9EAF2;
     font-weight: 600;
+    letter-spacing: 1.5px;
 }
+
+p {
+    letter-spacing: 1px;
+}
+
 
 /* Buttons */
 
@@ -175,6 +181,8 @@ button:active {
     text-align: center;
     margin-bottom: 20px;
     color: #d9eaf2;
+    letter-spacing: 4px;
+    text-transform: uppercase;
 }
 
 .ship-info {
@@ -187,6 +195,7 @@ button:active {
 
     color: #f5f9fc;
     font-weight: 600;
+    letter-spacing: 2px;
 }
 
 .ship-info-cells {

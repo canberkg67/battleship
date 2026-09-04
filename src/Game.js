@@ -3,8 +3,8 @@ import { Ship } from '../src/Ship.js';
 
 export class Game {
     constructor() {
-        this.player1 = new Player("You");
-        this.player2 = new Player("Enemy");
+        this.player1 = new Player("YOU");
+        this.player2 = new Player("ENEMY");
         this.currentPlayer = this.player1;
         this.turn = 0;
         this.player1.availableShips = this.createShips();
