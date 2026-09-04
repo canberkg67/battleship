@@ -75,6 +75,19 @@ body {
     border: 2px solid #2a4d6f;
 }
 
+.ship-sunk {
+    background-color: rgba(38, 50, 56, 0);
+    border: 2px solid rgba(42, 77, 111, 0);
+    transition:
+        background-color 0.8s ease,
+        border-color 0.8s ease;
+}
+
+.ship-sunk.reveal {
+    background-color: #263238;
+    border-color: #2a4d6f;
+}
+
 #game-container {
     display: flex;
     justify-content: center;

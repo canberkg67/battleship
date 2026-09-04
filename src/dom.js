@@ -3,7 +3,7 @@ const gameContainer = document.getElementById('game-container');
 let gamePhase = 'placement'; // 'placement' or 'battle' or 'game-over'
 let gameStatus;
 
-function createBoard(player, game , turnCounter) {
+function createBoard(player, game, turnCounter) {
     const playerSection = document.createElement('section');
 
     const title = document.createElement('h2');
@@ -108,13 +108,35 @@ function createBoard(player, game , turnCounter) {
                     }
 
                     if (hit === "sunk") {
-                        cell.textContent = 'X';
-                        cell.classList.add('hit');
-                        
+                        const sunkShip =
+                            enemy.gameboard.board[
+                            Number(cell.dataset.row)
+                            ][
+                            Number(cell.dataset.col)
+                            ];
+
+                        for (let row = 0; row < 10; row++) {
+                            for (let col = 0; col < 10; col++) {
+
+                                if (enemy.gameboard.board[row][col] === sunkShip) {
+
+                                    const sunkCell = board.children[row * 10 + col];
+
+                                    sunkCell.textContent = 'X';
+                                    sunkCell.classList.add('hit');
+                                    sunkCell.classList.add('ship-sunk');
+
+                                    setTimeout(() => {
+                                        sunkCell.classList.add('reveal');
+                                    }, 50);
+                                }
+                            }
+                        }
+
                         hitSound.currentTime = 0;
                         hitSound.play();
 
-                        hitSound.onended = () => { // Play the sink sound after the hit sound finishes
+                        hitSound.onended = () => {
                             sinkSound.currentTime = 0;
                             sinkSound.play();
                         };
@@ -365,7 +387,7 @@ function createIntroModal() {
     return overlay;
 }
 
-function createGameOverModal(game,winner) {
+function createGameOverModal(game, winner) {
     const overlay = document.createElement('div');
     overlay.classList.add('game-over-overlay');
 
@@ -414,7 +436,7 @@ export function renderGame(game) {
 
     const fleetInfo = createFleetInfo(game.player1);
 
-    const player1Board = createBoard(game.player1, game , gameStatusElement.turnCounter);
+    const player1Board = createBoard(game.player1, game, gameStatusElement.turnCounter);
     const player2Board = createBoard(game.player2, game, gameStatusElement.turnCounter);
 
     gameContainer.parentElement.insertBefore(
