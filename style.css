@@ -270,7 +270,7 @@ button:active {
 }
 
 .hidden {
-    display: none;
+    visibility: hidden;
 }
 
 .game-over-overlay {
