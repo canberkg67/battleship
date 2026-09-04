@@ -6,31 +6,77 @@ export class AI {
         this.targetCoordinates = [];
         this.hitCoordinates = [];
         this.direction = null;
+        this.missedCoordinates = [];
     }
 
     chooseAttack() {
         let coordinates;
 
-        if (this.targetCoordinates.length > 0) {
-            coordinates = this.targetCoordinates.shift();
-        } else {
-            do {
-                coordinates = [
-                    Math.floor(Math.random() * 10),
-                    Math.floor(Math.random() * 10)
-                ];
-            } while (
-                this.attackedCoordinates.some(
-                    ([row, col]) =>
-                        row === coordinates[0] &&
-                        col === coordinates[1]
-                )
-            );
+        while (this.targetCoordinates.length > 0) {
+            const target = this.targetCoordinates.shift();
+
+            if (!this.isImpossibleCell(target)) {
+                coordinates = target;
+                break;
+            }
+        }
+
+        if (!coordinates) {
+            const availableCoordinates = [];
+
+            for (let row = 0; row < 10; row++) {
+                for (let col = 0; col < 10; col++) {
+                    const candidate = [row, col];
+
+                    if (
+                        !this.attackedCoordinates.some(
+                            ([attackedRow, attackedCol]) =>
+                                attackedRow === row && attackedCol === col
+                        ) &&
+                        !this.isImpossibleCell(candidate)
+                    ) {
+                        availableCoordinates.push(candidate);
+                    }
+                }
+            }
+
+            if (availableCoordinates.length === 0) {
+                return null;
+            }
+
+            coordinates = availableCoordinates[
+                Math.floor(Math.random() * availableCoordinates.length)
+            ];
         }
 
         this.attackedCoordinates.push(coordinates);
 
         return coordinates;
+    }
+
+    isImpossibleCell([row, col]) {
+        const adjacentCoordinates = [
+            [row - 1, col],
+            [row + 1, col],
+            [row, col - 1],
+            [row, col + 1]
+        ];
+
+        return adjacentCoordinates.every(([adjacentRow, adjacentCol]) => {
+            if (
+                adjacentRow < 0 ||
+                adjacentRow >= 10 ||
+                adjacentCol < 0 ||
+                adjacentCol >= 10
+            ) {
+                return true;
+            }
+
+            return this.missedCoordinates.some(
+                ([missedRow, missedCol]) =>
+                    missedRow === adjacentRow && missedCol === adjacentCol
+            );
+        });
     }
 
     processResult(coordinates, result) {
@@ -50,6 +96,9 @@ export class AI {
             }
 
             this.determineDirection();
+        }
+        if (result === false) {
+            this.missedCoordinates.push(coordinates);
         }
     }
 
