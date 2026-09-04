@@ -61,6 +61,8 @@ export class AI {
             [row, col + 1]
         ];
 
+        adjacentCoordinates.sort(() => Math.random() - 0.5);
+
         adjacentCoordinates.forEach(([newRow, newCol]) => {
             this.addTargetCoordinate(newRow, newCol);
         });
