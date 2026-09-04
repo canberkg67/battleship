@@ -15,7 +15,7 @@ describe('Player', () => {
         const enemy = new Player();
 
         player.attack(enemy.gameboard, [0, 0]);
-        expect(enemy.gameboard.missedAttacks).toContainEqual([0, 0]);
+        expect(enemy.gameboard.attackedCoordinates).toContainEqual([0, 0]);
     });
     test("Player can attack enemy gameboard and hit", () => {
         const player = new Player();
