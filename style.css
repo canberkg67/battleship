@@ -63,6 +63,7 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+    min-height: 35px;
 }
 
 .ship.selected {
