@@ -323,6 +323,7 @@ function createFleetInfo(player) {
 
 function createIntroModal() {
     const sound = new Audio('../audio/cannon-shot.mp3');
+    const music = document.querySelector('.music-player audio');
 
     const overlay = document.createElement('div');
     overlay.classList.add('intro-overlay');
@@ -346,6 +347,12 @@ function createIntroModal() {
 
     startButton.addEventListener('click', () => {
         sound.play();
+        music.volume = 0.5;
+        setTimeout(() => {
+            music.play().catch((error) => {
+                console.error('Music playback was blocked:', error);
+            });
+        }, 1000);
         overlay.remove();
     });
 
