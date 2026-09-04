@@ -9,6 +9,7 @@ export class Game {
         this.turn = 0;
         this.player1.availableShips = this.createShips();
         this.player2.availableShips = this.createShips();
+        this.placeShipsRandomly(this.player2);
     }
 
     switchPlayer() {
@@ -61,5 +62,33 @@ export class Game {
             new Ship(3, "Submarine"),
             new Ship(2, "Destroyer")
         ];
+    }
+
+    placeShipsRandomly(player) {
+        for (const ship of player.availableShips) {
+        let placed = false;
+
+        while (!placed) {
+            const row = Math.floor(Math.random() * 10);
+            const col = Math.floor(Math.random() * 10);
+
+            const orientation =
+                Math.random() < 0.5
+                    ? 'horizontal'
+                    : 'vertical';
+
+            try {
+                player.gameboard.placeShip(
+                    ship,
+                    [row, col],
+                    orientation
+                );
+
+                placed = true;
+            } catch (error) {
+                // Handle the error
+            }
+        }
+    }
     }
 }
