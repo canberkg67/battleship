@@ -3,7 +3,7 @@ const gameContainer = document.getElementById('game-container');
 let gamePhase = 'placement'; // 'placement' or 'battle' or 'game-over'
 let gameStatus;
 
-function createBoard(player, game, turnCounter) {
+function createBoard(player, game, turnCounter , targetBoard=null) {
     const playerSection = document.createElement('section');
 
     const title = document.createElement('h2');
@@ -105,6 +105,11 @@ function createBoard(player, game, turnCounter) {
                         gameStatus.textContent = 'YOUR TURN: ATTACK THE ENEMY FLEET';
                     } else {
                         gameStatus.textContent = 'ENEMY TURN: WAIT FOR YOUR TURN';
+
+                        const aiAttack = game.playAITurn();
+                        if (aiAttack) {
+                            renderAIAttack(targetBoard, aiAttack.coordinates, aiAttack.result);
+                        }
                     }
 
                     if (hit === "sunk") {
@@ -184,7 +189,26 @@ function createBoard(player, game, turnCounter) {
     playerSection.appendChild(orientationSelector.element);
     playerSection.appendChild(board);
 
+    playerSection.board = board; // Store the board reference in the playerSection for later use
+
     return playerSection;
+}
+
+function renderAIAttack(board, coordinates, result) {
+        const [row, col] = coordinates;
+
+        const cell = board.children[row * 10 + col];
+
+        if (result === "sunk") {
+            cell.textContent = "X";
+            cell.classList.add("hit");
+        } else if (result) {
+            cell.textContent = "X";
+            cell.classList.add("hit");
+        } else {
+            cell.textContent = "—";
+            cell.classList.add("miss");
+        }
 }
 
 function createGameStatus(game) {
@@ -437,7 +461,7 @@ export function renderGame(game) {
     const fleetInfo = createFleetInfo(game.player1);
 
     const player1Board = createBoard(game.player1, game, gameStatusElement.turnCounter);
-    const player2Board = createBoard(game.player2, game, gameStatusElement.turnCounter);
+    const player2Board = createBoard(game.player2, game, gameStatusElement.turnCounter , player1Board.board);
 
     gameContainer.parentElement.insertBefore(
         gameStatusElement.element,

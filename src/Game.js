@@ -68,35 +68,50 @@ export class Game {
 
     placeShipsRandomly(player) {
         for (const ship of player.availableShips) {
-        let placed = false;
+            let placed = false;
 
-        while (!placed) {
-            const row = Math.floor(Math.random() * 10);
-            const col = Math.floor(Math.random() * 10);
+            while (!placed) {
+                const row = Math.floor(Math.random() * 10);
+                const col = Math.floor(Math.random() * 10);
 
-            const orientation =
-                Math.random() < 0.5
-                    ? 'horizontal'
-                    : 'vertical';
+                const orientation =
+                    Math.random() < 0.5
+                        ? 'horizontal'
+                        : 'vertical';
 
-            try {
-                player.gameboard.placeShip(
-                    ship,
-                    [row, col],
-                    orientation
-                );
+                try {
+                    player.gameboard.placeShip(
+                        ship,
+                        [row, col],
+                        orientation
+                    );
 
-                placed = true;
-            } catch (error) {
-                // Handle the error
+                    placed = true;
+                } catch (error) {
+                    // Handle the error
+                }
             }
         }
-    }
     }
 
     playAITurn() {
         const coordinates = this.ai.chooseAttack();
-        const result = this.player2.attack(this.player1.gameboard, coordinates);
+
+        const result = this.player2.attack(
+            this.player1.gameboard,
+            coordinates
+        );
+
+        if (result === null) {
+            return null;
+        }
+
+        this.turn++;
+
+        if (!result) {
+            this.switchPlayer();
+        }
+
         return { coordinates, result };
     }
 }
