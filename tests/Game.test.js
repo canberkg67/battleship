@@ -1,4 +1,5 @@
 import { Game } from '../src/Game.js';
+import { Gameboard } from '../src/Gameboard.js';
 import { Ship } from '../src/Ship.js';
 
 describe('Game', () => {
@@ -22,6 +23,7 @@ describe('Game', () => {
     });
     test("Game is over if one player has no ships left", () => {
         const game = new Game();
+        game.player2.gameboard = new Gameboard();
         const ship = new Ship(1);
         game.player2.gameboard.placeShip(ship, [0, 0], 'horizontal');
         game.player1.attack(game.player2.gameboard, [0, 0]);
@@ -29,6 +31,7 @@ describe('Game', () => {
     });
     test("Return the winner if one player has no ships left", () => {
         const game = new Game();
+        game.player2.gameboard = new Gameboard();
         const ship = new Ship(1);
         game.player2.gameboard.placeShip(ship, [0, 0], 'horizontal');
         game.player1.attack(game.player2.gameboard, [0, 0]);
@@ -36,6 +39,7 @@ describe('Game', () => {
     });
     test("automatically switch player after a missed attack", () => {
         const game = new Game();
+        game.player2.gameboard = new Gameboard();
         const ship = new Ship(1);
         game.player2.gameboard.placeShip(ship, [0, 0], 'horizontal');
         game.playTurn([1, 1]);
@@ -43,6 +47,7 @@ describe('Game', () => {
     });
     test("does not switch player after a successful attack", () => {
         const game = new Game();
+        game.player2.gameboard = new Gameboard();
         const ship = new Ship(1);
         game.player2.gameboard.placeShip(ship, [0, 0], 'horizontal');
         game.playTurn([0, 0]);
