@@ -1,5 +1,11 @@
 const gameContainer = document.getElementById('game-container');
 
+const hitSound = new Audio('../audio/cannon-shot.mp3');
+const missSound = new Audio('../audio/splash.mp3');
+const sinkSound = new Audio('../audio/sink.mp3');
+const winSound = new Audio('../audio/win.mp3');
+const lostSound = new Audio('../audio/lost.mp3');
+
 let gamePhase = 'placement'; // 'placement' or 'battle' or 'game-over'
 let gameStatus;
 
@@ -19,11 +25,6 @@ function createBoard(player, game, turnCounter, targetBoard = null) {
     }
 
     const placementSound = new Audio('../audio/ship-bell.mp3');
-    const hitSound = new Audio('../audio/cannon-shot.mp3');
-    const missSound = new Audio('../audio/splash.mp3');
-    const sinkSound = new Audio('../audio/sink.mp3');
-    const winSound = new Audio('../audio/win.mp3');
-    const lostSound = new Audio('../audio/lost.mp3');
 
     const board = document.createElement('div');
     board.classList.add('board');
@@ -161,6 +162,10 @@ function createBoard(player, game, turnCounter, targetBoard = null) {
 
                         gamePhase = 'game-over';
 
+                        const music = document.querySelector('.music-player audio');
+                        music.pause();
+                        music.currentTime = 0;
+
                         if (winner === game.player1) {
                             winSound.currentTime = 0;
                             winSound.play();
@@ -203,6 +208,18 @@ function playAITurn(game, targetBoard, turnCounter) {
             aiAttack.coordinates,
             aiAttack.result
         );
+        
+        if (aiAttack.result === "sunk") {
+            hitSound.currentTime = 0;
+            hitSound.play();
+        } else if (aiAttack.result) {
+            hitSound.currentTime = 0;
+            hitSound.play();
+        } else {
+            missSound.currentTime = 0;
+            missSound.play();
+        }
+
         turnCounter.textContent = `TURN: ${game.turn}`;
 
         if (game.isGameOver()) {
