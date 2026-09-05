@@ -235,7 +235,7 @@ function playAITurn(game, targetBoard, turnCounter) {
         } else {
             gameStatus.textContent = 'YOUR TURN: ATTACK THE ENEMY FLEET';
         }
-    }, 800);
+    }, 1100);
 }
 
 function renderAIAttack(board, coordinates, result) {
