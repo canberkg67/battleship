@@ -48,13 +48,13 @@ DOM manipulation and UI behavior are kept separate from the core game logic and 
 ## Audio and Font
 
 Sounds and music are license free audio files from Pixabay.
-Barlow Condensed font is self hosted in the project via @fontface.
+Barlow Condensed font is self hosted in the project via `@fontface`.
 
 ## Project Structure
 
-- Project root contains main files like index.html,style.css ...
-- src folder contains Classes such as Game,Player,Gameboard etc and dom files.
-- tests folder contains jest files to test related Classes.
-- fonts folder in src contains font files.
-- images folder contains images like background.
-- audio folder contains music and sound files.
+- Project `root` contains main files like index.html,style.css ...
+- `src` folder contains Classes such as Game,Player,Gameboard etc and dom files.
+- `tests` folder contains jest files to test related Classes.
+- `fonts` folder in src contains font files.
+- `images` folder contains images like background.
+- `audio` folder contains music and sound files.
