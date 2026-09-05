@@ -9,6 +9,16 @@ const lostSound = new Audio('../audio/lost.mp3');
 let gamePhase = 'placement'; // 'placement' or 'battle' or 'game-over'
 let gameStatus;
 
+function playGameOverSound(game, winner) {
+    const music = document.querySelector('.music-player audio');
+    music.pause();
+    music.currentTime = 0;
+
+    const resultSound = winner === game.player1 ? winSound : lostSound;
+    resultSound.currentTime = 0;
+    resultSound.play();
+}
+
 function createBoard(player, game, turnCounter, targetBoard = null) {
     const playerSection = document.createElement('section');
 
@@ -161,18 +171,7 @@ function createBoard(player, game, turnCounter, targetBoard = null) {
                         console.log(`${winner.name} wins!`);
 
                         gamePhase = 'game-over';
-
-                        const music = document.querySelector('.music-player audio');
-                        music.pause();
-                        music.currentTime = 0;
-
-                        if (winner === game.player1) {
-                            winSound.currentTime = 0;
-                            winSound.play();
-                        } else {
-                            lostSound.currentTime = 0;
-                            lostSound.play();
-                        }
+                        playGameOverSound(game, winner);
 
                         const gameOverModal = createGameOverModal(game, winner);
                         document.body.appendChild(gameOverModal);
@@ -225,6 +224,7 @@ function playAITurn(game, targetBoard, turnCounter) {
         if (game.isGameOver()) {
             gamePhase = 'game-over';
             const winner = game.getWinner();
+            playGameOverSound(game, winner);
             const gameOverModal = createGameOverModal(game, winner);
             document.body.appendChild(gameOverModal);
             return;
