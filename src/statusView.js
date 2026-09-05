@@ -20,7 +20,7 @@ export function createGameStatus(game) {
 
 export function startBattle(gameStatus) {
     console.log('Battle started');
-    const sound = new Audio('../audio/battle-start-horn.mp3');
+    const sound = new Audio('./audio/battle-start-horn.mp3');
     sound.play();
     gameStatus.textContent = 'YOUR TURN: ATTACK THE ENEMY FLEET';
 

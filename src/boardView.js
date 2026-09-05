@@ -36,7 +36,7 @@ export function createBoard(
         orientationSelector.element.classList.add('hidden');
     }
 
-    const placementSound = new Audio('../audio/ship-bell.mp3');
+    const placementSound = new Audio('./audio/ship-bell.mp3');
 
     const board = document.createElement('div');
     board.classList.add('board');

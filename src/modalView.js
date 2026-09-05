@@ -1,5 +1,5 @@
 export function createIntroModal() {
-    const sound = new Audio('../audio/cannon-shot.mp3');
+    const sound = new Audio('./audio/cannon-shot.mp3');
     const music = document.querySelector('.music-player audio');
 
     const overlay = document.createElement('div');
