@@ -1,5 +1,7 @@
 # Battleship
 
+**[Live Demo](https://canberkg67.github.io/battleship/)**
+
 This is a Battleship game built with JavaScript as part of [The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-battleship).
 
 This project focuses on OOP, TDD, ES Modules and DOM manipulation.
