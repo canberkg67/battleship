@@ -29,6 +29,7 @@
 
 body {
     min-height: 100vh;
+    overflow-x: hidden;
     font-family: "Barlow Condensed", sans-serif;
 
     background-image:
@@ -43,13 +44,20 @@ body {
     background-attachment: fixed;
 }
 
+.container {
+    width: min(100%, 1200px);
+    margin: 0 auto;
+    padding: 0 16px 50px;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
     gap: 2px;
-    width: 400px;
-    height: 400px;
+    width: min(400px, 100%);
+    height: auto;
+    aspect-ratio: 1;
     border: 2px solid #000;
 }
 
@@ -92,7 +100,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 80px;
-    padding-bottom: 50px;
+    align-items: flex-start;
 }
 
 #game-container > section {
@@ -100,6 +108,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    width: min(400px, 100%);
 }
 
 .orientation-container {
@@ -110,10 +119,9 @@ body {
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin: 20px 0;
     color: #F5F9FC;
-    letter-spacing: 10px;
+    letter-spacing: clamp(3px, 2vw, 10px);
     font-weight: 700;
 }
 
@@ -173,14 +181,14 @@ button:active {
 }
 
 .music-player audio {
-    width: 350px;
+    width: min(350px, 100%);
     height: 30px;
 }
 
 /* Fleet Info */
 
 .fleet-info {
-    width: 180px;
+    width: min(180px, 100%);
     padding: 20px;
 
     background-color: rgba(10, 35, 50, 0.9);
@@ -240,7 +248,7 @@ button:active {
 }
 
 .intro-modal {
-    width: 450px;
+    width: min(450px, calc(100% - 32px));
     padding: 40px;
 
     text-align: center;
@@ -310,7 +318,7 @@ button:active {
 }
 
 .game-over-modal {
-    width: 400px;
+    width: min(400px, calc(100% - 32px));
     padding: 40px;
 
     display: flex;
@@ -355,4 +363,57 @@ button:active {
     font-size: 20px;
     font-weight: 600;
     color: #f5f9fc;
+}
+
+@media (max-width: 900px) {
+    #game-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .fleet-info {
+        width: min(400px, 100%);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding-inline: 12px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .intro-modal,
+    .game-over-modal {
+        width: calc(100% - 24px);
+        padding: 24px 18px;
+    }
+
+    .intro-modal h2,
+    .game-over-modal h2 {
+        font-size: 30px;
+    }
+
+    .intro-modal p,
+    .game-over-modal p {
+        font-size: 17px;
+    }
+
+    .ship-container,
+    .orientation-container {
+        width: 100%;
+    }
+
+    .ship-container button,
+    .orientation-container button {
+        flex: 1 1 auto;
+    }
 }
