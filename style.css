@@ -88,10 +88,11 @@ body {
 
 .ship-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: 10px;
     min-height: 35px;
+    overflow-x: auto;
 }
 
 .ship.selected {
@@ -141,18 +142,18 @@ h1 {
     text-align: center;
     margin: 20px 0;
     color: #F5F9FC;
-    letter-spacing: clamp(3px, 2vw, 10px);
+    letter-spacing: clamp(3px, 2vw, 15px);
     font-weight: 700;
 }
 
 h2 {
     color: #D9EAF2;
     font-weight: 600;
-    letter-spacing: 1.5px;
+    letter-spacing: 2.5px;
 }
 
 p {
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 }
 
 
