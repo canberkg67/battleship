@@ -368,12 +368,24 @@ button:active {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
+.game-over-image {
+    display: block;
+    width: 120px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 4px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(245, 249, 252, 0.2));
+}
+
 .game-over-modal h2 {
+    color: #f5f9fc;
     font-size: 48px;
     letter-spacing: 2px;
 }
 
 .game-over-modal p {
+    color: #f5f9fc;
     font-size: 20px;
 }
 

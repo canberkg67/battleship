@@ -55,6 +55,17 @@ export function createGameOverModal(game, winner) {
     const modal = document.createElement('div');
     modal.classList.add('game-over-modal');
 
+    const resultImage = document.createElement('img');
+    resultImage.classList.add('game-over-image');
+
+    if (winner === game.player1) {
+        resultImage.src = './images/win.svg';
+        resultImage.alt = 'Victory image';
+    } else {
+        resultImage.src = './images/lose.svg';
+        resultImage.alt = 'Defeat image';
+    }
+
     const title = document.createElement('h2');
 
     if (winner === game.player1) {
@@ -71,6 +82,7 @@ export function createGameOverModal(game, winner) {
         message.textContent = 'Your fleet has been destroyed.';
     }
 
+    modal.appendChild(resultImage);
     modal.appendChild(title);
     modal.appendChild(message);
     overlay.appendChild(modal);
