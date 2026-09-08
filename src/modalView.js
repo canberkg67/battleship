@@ -1,3 +1,5 @@
+import { getRandomQuote } from './quotes.js';
+
 export function createIntroModal() {
     const sound = new Audio('./audio/cannon-shot.mp3');
     const music = document.querySelector('.music-player audio');
@@ -58,7 +60,9 @@ export function createGameOverModal(game, winner) {
     const resultImage = document.createElement('img');
     resultImage.classList.add('game-over-image');
 
-    if (winner === game.player1) {
+    const playerWon = winner === game.player1;
+
+    if (playerWon) {
         resultImage.src = './images/win.svg';
         resultImage.alt = 'Victory image';
     } else {
@@ -68,15 +72,20 @@ export function createGameOverModal(game, winner) {
 
     const title = document.createElement('h2');
 
-    if (winner === game.player1) {
+    if (playerWon) {
         title.textContent = 'YOU WIN!';
     } else {
         title.textContent = 'YOU LOST!';
     }
 
+    const quote = document.createElement('p');
+    quote.classList.add('game-over-quote');
+    quote.textContent = getRandomQuote(playerWon);
+    quote.setAttribute('aria-label', 'Game over quote');
+
     const message = document.createElement('p');
 
-    if (winner === game.player1) {
+    if (playerWon) {
         message.textContent = 'All enemy ships have been sunk.';
     } else {
         message.textContent = 'Your fleet has been destroyed.';
@@ -84,6 +93,7 @@ export function createGameOverModal(game, winner) {
 
     modal.appendChild(resultImage);
     modal.appendChild(title);
+    modal.appendChild(quote);
     modal.appendChild(message);
     overlay.appendChild(modal);
 

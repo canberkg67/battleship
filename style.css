@@ -384,6 +384,14 @@ button:active {
     letter-spacing: 2px;
 }
 
+.game-over-quote {
+    margin: 0;
+    color: #f9e9d8;
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.5;
+}
+
 .game-over-modal p {
     color: #f5f9fc;
     font-size: 20px;
