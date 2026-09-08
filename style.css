@@ -272,7 +272,7 @@ button:active {
 
 .intro-modal {
     width: min(450px, calc(100% - 32px));
-    padding: 40px;
+    padding: 30px 40px;
 
     text-align: center;
 
@@ -284,6 +284,16 @@ button:active {
     color: #f5f9fc;
 
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.intro-image {
+    display: block;
+    width: 150px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 12px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(245, 249, 252, 0.2));
 }
 
 .intro-modal h2 {

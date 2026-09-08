@@ -8,6 +8,11 @@ export function createIntroModal() {
     const modal = document.createElement('div');
     modal.classList.add('intro-modal');
 
+    const introImage = document.createElement('img');
+    introImage.classList.add('intro-image');
+    introImage.src = './images/intro-image.svg';
+    introImage.alt = 'Admiral intro image';
+
     const title = document.createElement('h2');
     title.textContent = 'WELCOME ADMIRAL!';
 
@@ -33,6 +38,7 @@ export function createIntroModal() {
         overlay.remove();
     });
 
+    modal.appendChild(introImage);
     modal.appendChild(title);
     modal.appendChild(description);
     modal.appendChild(startButton);
