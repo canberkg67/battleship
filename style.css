@@ -44,6 +44,26 @@ body {
     background-attachment: fixed;
 }
 
+.logo {
+    position:absolute;
+    top: 20px;
+    width: 100px;
+    height: 100px;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.logo-left {
+    left: 70px;
+}
+
+.logo-right {
+    right: 70px;
+}
+
 .container {
     width: min(100%, 1200px);
     margin: 0 auto;
